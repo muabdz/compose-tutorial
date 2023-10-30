@@ -8,9 +8,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -47,10 +51,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BusinessCard(name: String, title: String, modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        modifier = modifier.fillMaxSize()
     ) {
-        MiddlePart(name = name, title = title, modifier = modifier)
+        MiddlePart(name = name, title = title, modifier = Modifier.align(Alignment.Center))
+        BottomPart(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
@@ -58,7 +62,9 @@ fun BusinessCard(name: String, title: String, modifier: Modifier = Modifier) {
 fun MiddlePart(name: String, title: String, modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(8.dp).fillMaxWidth(),
+        modifier = modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Image(
@@ -83,6 +89,40 @@ fun MiddlePart(name: String, title: String, modifier: Modifier = Modifier) {
             overflow = TextOverflow.Ellipsis
         )
     }
+}
+
+@Composable
+fun BottomPart(modifier: Modifier = Modifier) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .padding(20.dp)
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        ContactsRow(resourceId = R.drawable.ic_launcher_foreground, contact = "+2121212122")
+        ContactsRow(resourceId = R.drawable.ic_launcher_foreground, contact = "+2121212122")
+        ContactsRow(resourceId = R.drawable.ic_launcher_foreground, contact = "+2121212122")
+    }
+}
+
+@Composable
+fun ContactsRow(resourceId: Int, contact: String, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Icon(painter = painterResource(resourceId), null, modifier = modifier
+            .width(24.dp)
+            .height(24.dp))
+        Text(
+            text = contact,
+            modifier = modifier,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL_2, showSystemUi = true)
